@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Clientes</title>
+</head>
+<body>
+    <h1>Clientes Registrados</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody id="client-list">
+            <!-- Aquí se llenarán los datos dinámicamente -->
+        </tbody>
+    </table>
+    <script>
+        // Suponiendo que tienes un endpoint en el servidor para obtener todos los clientes
+        fetch('http://localhost:3000/clients')
+            .then(response => response.json())
+            .then(data => {
+                const clientList = document.getElementById('client-list');
+                data.forEach(client => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${client.id}</td>
+                        <td>${client.firstName}</td>
+                        <td>${client.lastName}</td>
+                        <td>${client.email}</td>
+                    `;
+                    clientList.appendChild(row);
+                });
+            });
+    </script>
+</body>
+</html>
